@@ -1,4 +1,7 @@
 #include "flicker/Constants.h"
+#include "src/arduino/AnalogLed.hpp"
+#include "src/if/Led.h"
+
 #define FLICKER_LED_PIN0 3
 #define FLICKER_LED_PIN1 5
 #define FLICKER_LED_PIN2 6
@@ -16,10 +19,12 @@ int flicker_random_low_end = 0;
 int flicker_random_high = 0;
 int flicker_random_speed_start = 0;
 int flicker_random_speed_end = 0;
+arduino::AnalogLed led1{};
 
 void loop()
 {
-
+    Led &led2 = led1;
+    led1.init();
     // random time for low
     flicker_random_low_start = random(flicker_low_min, flicker_low_max);
     flicker_random_low_end = random(flicker_low_min, flicker_low_max);
