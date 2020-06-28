@@ -1,9 +1,9 @@
 #ifndef SRC_ARDUINO_ANALOGLED
 #define SRC_ARDUINO_ANALOGLED
-#include "../if/Led.h"
+#include "../itf/Led.h"
 namespace arduino
 {
-    class AnalogLed : public Led
+    class AnalogLed : public itf::Led
     {
     public:
         AnalogLed(int);
