@@ -1,20 +1,20 @@
 #include "AnalogLed.hpp"
+#include "Arduino.h"
+
 namespace arduino
 {
-    AnalogLed::AnalogLed(int pin)
+    AnalogLed::AnalogLed(int pin) : pin(pin)
     {
-        pin = pin;
-    }
-
-    AnalogLed::AnalogLed()
-    {
+        init();
     }
 
     void AnalogLed::init()
     {
+        pinMode(pin, OUTPUT);
     }
 
-    void AnalogLed::write(int &)
+    void AnalogLed::write(int &value)
     {
+        analogWrite(pin, value);
     }
-} // namespace ar
+} // namespace arduino

@@ -9,22 +9,18 @@
 #define FLICKER_LED_PIN4 10
 #define FLICKER_LED_PIN5 11
 
-void setup()
-{
-    pinMode(FLICKER_LED_PIN0, OUTPUT);
-}
+void setup() {}
 
 int flicker_random_low_start = 0;
 int flicker_random_low_end = 0;
 int flicker_random_high = 0;
 int flicker_random_speed_start = 0;
 int flicker_random_speed_end = 0;
-arduino::AnalogLed led1{};
+arduino::AnalogLed led1{FLICKER_LED_PIN0};
 
 void loop()
 {
-    Led &led2 = led1;
-    led1.init();
+    // Led &led2 = led1;
     // random time for low
     flicker_random_low_start = random(flicker_low_min, flicker_low_max);
     flicker_random_low_end = random(flicker_low_min, flicker_low_max);
@@ -39,7 +35,7 @@ void loop()
     // low -> high
     for (int i = flicker_random_low_start; i < flicker_random_high; i++)
     {
-        analogWrite(FLICKER_LED_PIN0, i);
+        led1.write(i);
         delayMicroseconds(flicker_random_speed_start);
     }
 
@@ -49,7 +45,7 @@ void loop()
     // high -> low
     for (int i = flicker_random_high; i >= flicker_random_low_end; i--)
     {
-        analogWrite(FLICKER_LED_PIN0, i);
+        led1.write(i);
         delayMicroseconds(flicker_random_speed_end);
     }
 

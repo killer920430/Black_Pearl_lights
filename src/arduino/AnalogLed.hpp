@@ -6,12 +6,12 @@ namespace arduino
     class AnalogLed : public Led
     {
     public:
-        AnalogLed();
         AnalogLed(int);
-        void init();
-        void write(int &);
+        void write(int &) override;
 
     private:
+        void init();
+
         int pin;
     };
 } // namespace arduino
