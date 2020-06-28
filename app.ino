@@ -11,12 +11,6 @@
 
 void setup() {}
 
-// int flicker_random_low_start = 0;
-// int flicker_random_low_end = 0;
-// int flicker_random_high = 0;
-// int flicker_random_speed_start = 0;
-// int flicker_random_speed_end = 0;
-
 arduino::AnalogLed led1{FLICKER_LED_PIN0};
 candle::Candle candle1{led1};
 

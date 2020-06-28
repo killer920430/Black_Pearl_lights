@@ -8,35 +8,65 @@ namespace candle
 
     void Candle::run()
     {
-        // random time for low
-        flicker_random_low_start = random(flicker_low_min, flicker_low_max);
-        flicker_random_low_end = random(flicker_low_min, flicker_low_max);
-
-        // random time for high
-        flicker_random_high = random(flicker_high_min, flicker_high_max);
-
-        // random time for speed
-        flicker_random_speed_start = random(flicker_speed_min, flicker_speed_max);
-        flicker_random_speed_end = random(flicker_speed_min, flicker_speed_max);
+        generateTimeForLow();
+        generateTimeForHigh();
+        generateTimeForSpeed();
 
         // low -> high
-        for (int i = flicker_random_low_start; i < flicker_random_high; i++)
+        for (int i = candle_random_low_start; i < candle_random_high; i++)
         {
             led.write(i);
-            delayMicroseconds(flicker_random_speed_start);
+            waitMicroseconds(candle_random_speed_start);
         }
 
         // hold
-        delay(random(flicker_hold_min, flicker_hold_max));
+        waitMiliseconds(getHoldTime());
 
         // high -> low
-        for (int i = flicker_random_high; i >= flicker_random_low_end; i--)
+        for (int i = candle_random_high; i >= candle_random_low_end; i--)
         {
             led.write(i);
-            delayMicroseconds(flicker_random_speed_end);
+            waitMicroseconds(candle_random_speed_end);
         }
 
         // pause
-        delay(random(flicker_pause_min, flicker_pause_max));
+        waitMiliseconds(getPauseTime());
+    }
+
+    void Candle::generateTimeForLow()
+    {
+        candle_random_low_start = random(candle_low_min, candle_low_max);
+        candle_random_low_end = random(candle_low_min, candle_low_max);
+    }
+
+    void Candle::generateTimeForHigh()
+    {
+        candle_random_high = random(candle_high_min, candle_high_max);
+    }
+
+    void Candle::generateTimeForSpeed()
+    {
+        candle_random_speed_start = random(candle_speed_min, candle_speed_max);
+        candle_random_speed_end = random(candle_speed_min, candle_speed_max);
+    }
+
+    long Candle::getHoldTime()
+    {
+        return random(candle_hold_min, candle_hold_max);
+    }
+
+    long Candle::getPauseTime()
+    {
+        return random(candle_pause_min, candle_pause_max);
+    }
+
+    void Candle::waitMicroseconds(const int &microSeconds)
+    {
+        delayMicroseconds(microSeconds);
+    }
+
+    void Candle::waitMiliseconds(const long &miliSeconds)
+    {
+        delay(miliSeconds);
     }
 } // namespace candle
