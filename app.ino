@@ -9,12 +9,17 @@
 #define FLICKER_LED_PIN4 10
 #define FLICKER_LED_PIN5 11
 
-void setup() {}
-
 arduino::AnalogLed led1{FLICKER_LED_PIN0};
+
 candle::Candle candle1{led1};
+
+void setup()
+{
+    randomSeed(analogRead(0));
+}
 
 void loop()
 {
     candle1.run();
+    delay(100); // the delay between changes
 }
