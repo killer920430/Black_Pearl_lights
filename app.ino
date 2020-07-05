@@ -36,5 +36,6 @@ void loop()
     candle4.run();
     candle5.run();
     candle6.run();
-    delay(100); // the delay between changes
+
+    delay(random(50, 150));
 }

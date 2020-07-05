@@ -12,10 +12,10 @@ namespace candle
         void run();
 
     private:
-        static const int low_value = 50;
-        static const int high_value = 200;
-        static const int random_min_value = -40;
-        static const int random_max_value = 40;
+        static const int low_value = 90;
+        static const int high_value = 180;
+        static const int random_min_value = -30;
+        static const int random_max_value = 30;
 
         itf::Led &led;
         int value;
