@@ -6,12 +6,16 @@ namespace button
     class Button
     {
     public:
-        Button(int);
-        void check(void (*lp)(), void (*sp)(), void (*r)());
+        Button(int, void (*longPress)(), void (*shortPress)(), void (*release)(), int maxCountPress = 4);
+        void check();
 
     private:
-        unsigned int switch1Count = 0;
         int pin;
+        void (*longPress)();
+        void (*shortPress)();
+        void (*release)();
+        unsigned int maxCountPress = 4;
+        unsigned int count = 0;
     };
 } // namespace button
 #endif /* SRC_SWITCH_SWITCH */

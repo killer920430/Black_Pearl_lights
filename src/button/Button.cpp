@@ -3,28 +3,32 @@
 
 namespace button
 {
-    Button::Button(int pin) : pin(pin)
+    Button::Button(int pin, void (*longPress)(), void (*shortPress)(), void (*release)(), int maxCountPress) : pin(pin),
+                                                                                                               longPress(longPress),
+                                                                                                               shortPress(shortPress),
+                                                                                                               release(release),
+                                                                                                               maxCountPress(maxCountPress)
     {
     }
 
-    void Button::check(void (*lp)(), void (*sp)(), void (*r)())
+    void Button::check()
     {
         if (digitalRead(pin) == HIGH)
         {
-            switch1Count++;
-            if (switch1Count > SWITCH_MAX_TIME_PRESS)
+            count++;
+            if (count > maxCountPress)
             {
-                lp();
+                longPress();
             }
             else
             {
-                sp();
+                shortPress();
             }
         }
         else
         {
-            switch1Count = 0;
-            r();
+            count = 0;
+            release();
         }
     }
 } // namespace button

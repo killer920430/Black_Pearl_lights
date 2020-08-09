@@ -29,8 +29,6 @@ candle::Candle candle4{led4};
 candle::Candle candle5{led5};
 candle::Candle candle6{led6};
 
-button::Button sw1{SWITCH_1};
-
 SoftwareSerial SoftSerial(2, 3); //rx tx
 DY::Player player(&SoftSerial);
 
@@ -63,6 +61,7 @@ void release()
     // switch1Count = 0;
     digitalWrite(14, LOW);
 }
+button::Button sw1{SWITCH_1, longPress, shortPress, release};
 
 // void check(void (*lp)(), void (*sp)(), void (*r)())
 // {
@@ -95,7 +94,7 @@ void loop()
 
     delay(random(50, 150));
 
-    sw1.check(longPress, shortPress, release);
+    sw1.check();
     // player.playSpecified(1);
     // delay(2000);
 }
