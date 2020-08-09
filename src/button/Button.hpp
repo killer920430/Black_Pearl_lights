@@ -1,16 +1,19 @@
 #ifndef SRC_SWITCH_SWITCH
 #define SRC_SWITCH_SWITCH
+
+#include "../itf/PinControl.h"
 namespace button
 {
 #define SWITCH_MAX_TIME_PRESS 4
     class Button
     {
     public:
-        Button(int, void (*longPress)(), void (*shortPress)(), void (*release)(), int maxCountPress = 4);
+        Button(itf::PinControl &pinControl, uint8_t, void (*longPress)(), void (*shortPress)(), void (*release)(), int maxCountPress = 4);
         void check();
 
     private:
-        int pin;
+        itf::PinControl &pinControl;
+        const uint8_t pin;
         void (*longPress)();
         void (*shortPress)();
         void (*release)();

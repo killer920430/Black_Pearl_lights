@@ -1,19 +1,25 @@
 #include "Button.hpp"
-#include "Arduino.h"
+// #include "Arduino.h"
 
 namespace button
 {
-    Button::Button(int pin, void (*longPress)(), void (*shortPress)(), void (*release)(), int maxCountPress) : pin(pin),
-                                                                                                               longPress(longPress),
-                                                                                                               shortPress(shortPress),
-                                                                                                               release(release),
-                                                                                                               maxCountPress(maxCountPress)
+    Button::Button(itf::PinControl &pinControl,
+                   uint8_t pin,
+                   void (*longPress)(),
+                   void (*shortPress)(),
+                   void (*release)(),
+                   int maxCountPress) : pinControl(pinControl),
+                                        pin(pin),
+                                        longPress(longPress),
+                                        shortPress(shortPress),
+                                        release(release),
+                                        maxCountPress(maxCountPress)
     {
     }
 
     void Button::check()
     {
-        if (digitalRead(pin) == HIGH)
+        if (pinControl.digitalRead(pin))
         {
             count++;
             if (count > maxCountPress)

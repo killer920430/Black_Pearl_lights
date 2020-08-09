@@ -1,8 +1,9 @@
 #include "src/arduino/AnalogLed.hpp"
-#include "src/itf/Led.h"
-#include "src/candle/Candle.hpp"
+#include "src/arduino/ArduinoPinControl.hpp"
 #include "src/button/Button.hpp"
+#include "src/candle/Candle.hpp"
 #include "src/externals/dyplayer/DYPlayerArduino.h"
+#include "src/itf/Led.h"
 #include <SoftwareSerial.h>
 
 // #define FLICKER_LED_PIN1 3
@@ -14,6 +15,8 @@
 
 #define SWITCH_1 12
 #define SWITCH_2 13
+
+arduino::ArduinoPinControl pinControl{};
 
 // arduino::AnalogLed led1{FLICKER_LED_PIN1};
 arduino::AnalogLed led2{FLICKER_LED_PIN2};
@@ -58,30 +61,9 @@ void longPress()
 
 void release()
 {
-    // switch1Count = 0;
     digitalWrite(14, LOW);
 }
-button::Button sw1{SWITCH_1, longPress, shortPress, release};
-
-// void check(void (*lp)(), void (*sp)(), void (*r)())
-// {
-//     if (digitalRead(SWITCH_1) == HIGH)
-//     {
-//         switch1Count++;
-//         if (switch1Count > SWITCH_MAX_TIME_PRESS)
-//         {
-//             lp();
-//         }
-//         else
-//         {
-//             sp();
-//         }
-//     }
-//     else
-//     {
-//         r();
-//     }
-// }
+button::Button sw1{pinControl, SWITCH_1, longPress, shortPress, release};
 
 void loop()
 {
