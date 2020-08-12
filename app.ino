@@ -6,6 +6,9 @@
 #include "src/itf/Led.h"
 #include <SoftwareSerial.h>
 
+#define AUDIO_RX 2
+#define AUDIO_TX 3
+
 // #define FLICKER_LED_PIN1 3
 #define FLICKER_LED_PIN2 5
 #define FLICKER_LED_PIN3 6
@@ -32,7 +35,7 @@ candle::Candle candle4{led4};
 candle::Candle candle5{led5};
 candle::Candle candle6{led6};
 
-SoftwareSerial SoftSerial(2, 3); //rx tx
+SoftwareSerial SoftSerial(AUDIO_RX, AUDIO_TX);
 DY::Player player(&SoftSerial);
 
 unsigned int switch2Count = 0;
