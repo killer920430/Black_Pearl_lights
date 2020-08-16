@@ -4,5 +4,5 @@
     "configuration": "cpu=atmega328old",
     "programmer": "AVRISP mkII",
     "output": "build",
-    "port": "COM3"
+    "port": "COM4"
 }

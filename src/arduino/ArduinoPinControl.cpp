@@ -3,9 +3,12 @@
 
 namespace arduino
 {
-    void ArduinoPinControl::pinMode(const uint8_t &pin, const uint8_t &mode) const
+    void ArduinoPinControl::pinMode(const uint8_t &pin, const itf::mode &mode) const
     {
-        ::pinMode(pin, mode);
+        if (mode == itf::mode::input)
+            ::pinMode(pin, INPUT);
+        else
+            ::pinMode(pin, OUTPUT);
     }
 
     void ArduinoPinControl::digitalWrite(const uint8_t &pin, const uint8_t &val) const

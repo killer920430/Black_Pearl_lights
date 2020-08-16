@@ -1,9 +1,9 @@
-#include "src/arduino/AnalogLed.hpp"
 #include "src/arduino/ArduinoPinControl.hpp"
 #include "src/button/Button.hpp"
 #include "src/candle/Candle.hpp"
 #include "src/externals/dyplayer/DYPlayerArduino.h"
 #include "src/itf/Led.h"
+#include "src/led/AnalogLed.hpp"
 #include <SoftwareSerial.h>
 
 #define AUDIO_RX 2
@@ -21,12 +21,12 @@
 
 arduino::ArduinoPinControl pinControl{};
 
-// arduino::AnalogLed led1{FLICKER_LED_PIN1};
-arduino::AnalogLed led2{FLICKER_LED_PIN2};
-arduino::AnalogLed led3{FLICKER_LED_PIN3};
-arduino::AnalogLed led4{FLICKER_LED_PIN4};
-arduino::AnalogLed led5{FLICKER_LED_PIN5};
-arduino::AnalogLed led6{FLICKER_LED_PIN6};
+// led::AnalogLed led1{pinControl, FLICKER_LED_PIN1};
+led::AnalogLed led2{pinControl, FLICKER_LED_PIN2};
+led::AnalogLed led3{pinControl, FLICKER_LED_PIN3};
+led::AnalogLed led4{pinControl, FLICKER_LED_PIN4};
+led::AnalogLed led5{pinControl, FLICKER_LED_PIN5};
+led::AnalogLed led6{pinControl, FLICKER_LED_PIN6};
 
 // candle::Candle candle1{led1};
 candle::Candle candle2{led2};
