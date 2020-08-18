@@ -11,8 +11,7 @@ namespace candle
     void Candle::run()
     {
         led.write(value);
-        int randNumber = random(random_min_value, random_max_value);
-        value += randNumber;
+        value += random(random_min_value, random_max_value);
         if (value > high_value)
         {
             value = high_value;

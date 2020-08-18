@@ -1,9 +1,8 @@
 #include "AnalogLed.hpp"
-// #include "Arduino.h"
 
 namespace led
 {
-    AnalogLed::AnalogLed(itf::PinControl &pinControl, int pin) : pinControl(pinControl), pin(pin)
+    AnalogLed::AnalogLed(itf::PinControl &pinControl, const uint8_t pin) : pinControl(pinControl), pin(pin)
     {
         init();
     }
@@ -13,7 +12,7 @@ namespace led
         pinControl.pinMode(pin, itf::mode::output);
     }
 
-    void AnalogLed::write(int &value)
+    void AnalogLed::write(const uint8_t &value)
     {
         pinControl.analogWrite(pin, value);
     }

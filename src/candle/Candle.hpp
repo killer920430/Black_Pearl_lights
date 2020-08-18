@@ -1,7 +1,7 @@
 #ifndef SRC_CANDLE_CANDLE
 #define SRC_CANDLE_CANDLE
-#include "Candle.hpp"
 #include "../itf/Led.h"
+#include "Candle.hpp"
 
 namespace candle
 {
@@ -18,7 +18,7 @@ namespace candle
         static const int random_max_value = 30;
 
         itf::Led &led;
-        int value;
+        uint8_t value;
     };
 } // namespace candle
 #endif /* SRC_CANDLE_CANDLE */

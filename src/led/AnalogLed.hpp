@@ -9,14 +9,14 @@ namespace led
     class AnalogLed : public itf::Led
     {
     public:
-        AnalogLed(itf::PinControl &, int);
-        void write(int &) override;
+        AnalogLed(itf::PinControl &, const uint8_t);
+        void write(const uint8_t &) override;
 
     private:
         void init();
 
         itf::PinControl &pinControl;
-        int pin;
+        uint8_t pin;
     };
 } // namespace led
 #endif /* SRC_ARDUINO_ANALOGLED */
