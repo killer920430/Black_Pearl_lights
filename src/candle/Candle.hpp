@@ -14,7 +14,7 @@ namespace candle
     private:
         static constexpr uint8_t low_value = 90;
         static constexpr uint8_t high_value = 180;
-        static constexpr uint8_t random_min_value = -30;
+        static constexpr int8_t random_min_value = -30;
         static constexpr uint8_t random_max_value = 30;
 
         itf::Led &led;
