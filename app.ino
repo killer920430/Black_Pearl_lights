@@ -35,10 +35,15 @@ candle::Candle candle4{led4};
 candle::Candle candle5{led5};
 candle::Candle candle6{led6};
 
+#define VOLUME_MAX 30
+#define VOLUME_MIN 0
+#define VOLUME_STEEP 0
 SoftwareSerial SoftSerial(AUDIO_RX, AUDIO_TX);
 DY::Player player(&SoftSerial);
 
-unsigned int switch2Count = 0;
+uint8_t volume = VOLUME_MAX;
+bool lightsOn = true;
+bool soundsOn = true;
 
 void setup()
 {
@@ -50,32 +55,71 @@ void setup()
     pinMode(SWITCH_1, INPUT);
 }
 
-void shortPress()
+void increaseVolume()
 {
-    digitalWrite(14, HIGH);
-    delay(10);
-    digitalWrite(14, LOW);
+    if (volume < VOLUME_MAX)
+    {
+        volume = volume + VOLUME_STEEP;
+        if (volume > VOLUME_MAX)
+            volume = VOLUME_MAX;
+        player.setVolume(volume);
+    }
 }
 
-void longPress()
+void decreseVolume()
 {
-    digitalWrite(14, HIGH);
+    if (volume > VOLUME_MIN)
+    {
+        volume = volume - VOLUME_STEEP;
+        if (volume < VOLUME_MIN)
+            volume = VOLUME_MIN;
+        player.setVolume(volume);
+    }
 }
 
-button::Button sw1{pinControl, SWITCH_1, longPress, shortPress};
+void toogleLight()
+{
+    if (lightsOn)
+        lightsOn = false;
+    else
+        lightsOn = true;
+}
+
+void toogleSound()
+{
+    if (soundsOn)
+        soundsOn = false;
+    else
+        soundsOn = true;
+}
+
+button::Button sw1{pinControl, SWITCH_1, toogleLight, increaseVolume};
+button::Button sw2{pinControl, SWITCH_2, toogleSound, decreseVolume};
 
 void loop()
 {
-    // candle1.run();
-    candle2.run();
-    candle3.run();
-    candle4.run();
-    candle5.run();
-    candle6.run();
+    if (lightsOn)
+    {
+        // candle1.run();
+        candle2.run();
+        candle3.run();
+        candle4.run();
+        candle5.run();
+        candle6.run();
+    }
+    else
+    {
+        candle2.off();
+        candle3.off();
+        candle4.off();
+        candle5.off();
+        candle6.off();
+    }
 
     delay(random(50, 150));
 
     sw1.check();
+    sw2.check();
     // player.playSpecified(1);
     // delay(2000);
 }
