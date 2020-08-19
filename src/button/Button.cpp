@@ -3,17 +3,15 @@
 
 namespace button
 {
-    Button::Button(itf::PinControl &pinControl,
-                   uint8_t pin,
+    Button::Button(const itf::PinControl &pinControl,
+                   const uint8_t pin,
                    void (*longPress)(),
                    void (*shortPress)(),
-                   void (*release)(),
-                   int maxCountPress) : pinControl(pinControl),
-                                        pin(pin),
-                                        longPress(longPress),
-                                        shortPress(shortPress),
-                                        release(release),
-                                        maxCountPress(maxCountPress)
+                   const int maxCountPress) : pinControl(pinControl),
+                                              pin(pin),
+                                              longPress(longPress),
+                                              shortPress(shortPress),
+                                              maxCountPress(maxCountPress)
     {
     }
 
@@ -22,19 +20,14 @@ namespace button
         if (pinControl.digitalRead(pin))
         {
             count++;
-            if (count > maxCountPress)
-            {
-                longPress();
-            }
-            else
-            {
-                shortPress();
-            }
         }
-        else
+        else if (count > 0)
         {
+            if (count > maxCountPress)
+                longPress();
+            else
+                shortPress();
             count = 0;
-            release();
         }
     }
 } // namespace button

@@ -62,11 +62,7 @@ void longPress()
     digitalWrite(14, HIGH);
 }
 
-void release()
-{
-    digitalWrite(14, LOW);
-}
-button::Button sw1{pinControl, SWITCH_1, longPress, shortPress, release};
+button::Button sw1{pinControl, SWITCH_1, longPress, shortPress};
 
 void loop()
 {

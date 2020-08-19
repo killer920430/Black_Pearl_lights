@@ -8,16 +8,15 @@ namespace button
     class Button
     {
     public:
-        Button(itf::PinControl &pinControl, uint8_t, void (*longPress)(), void (*shortPress)(), void (*release)(), int maxCountPress = 4);
+        Button(const itf::PinControl &pinControl, const uint8_t, void (*longPress)(), void (*shortPress)(), const int maxCountPress = 4);
         void check();
 
     private:
-        itf::PinControl &pinControl;
+        const itf::PinControl &pinControl;
         const uint8_t pin;
         void (*longPress)();
         void (*shortPress)();
-        void (*release)();
-        unsigned int maxCountPress = 4;
+        const unsigned int maxCountPress;
         unsigned int count = 0;
     };
 } // namespace button
