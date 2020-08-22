@@ -111,30 +111,30 @@ button::Button sw2{pinControl, SWITCH_2, toogleSound, decreseVolume};
 
 void loop()
 {
-    // if (lightsOn)
-    // {
-    //     // candle1.run();
-    //     candle2.run();
-    //     candle3.run();
-    //     candle4.run();
-    //     candle5.run();
-    //     candle6.run();
-    // }
-    // else
-    // {
-    //     candle2.off();
-    //     candle3.off();
-    //     candle4.off();
-    //     candle5.off();
-    //     candle6.off();
-    // }
+    if (lightsOn)
+    {
+        // candle1.run();
+        candle2.run();
+        candle3.run();
+        candle4.run();
+        candle5.run();
+        candle6.run();
+    }
+    else
+    {
+        candle2.off();
+        candle3.off();
+        candle4.off();
+        candle5.off();
+        candle6.off();
+    }
 
     cannons.run();
 
-    // delay(random(50, 150));
+    delay(random(50, 150));
 
-    // sw1.check();
-    // sw2.check();
+    sw1.check();
+    sw2.check();
     // player.playSpecified(1);
     // delay(2000);
 }

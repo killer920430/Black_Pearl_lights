@@ -21,10 +21,16 @@ namespace cannon
 
     void Cannons::run()
     {
-        for (uint8_t i = 0; i < 13; i++)
+        if (currentIteration == lightsOnIteration)
+            lightCannon(1);
+        else if (currentIteration == lightsOffIteration)
+            lightOff();
+        else if (currentIteration == maxfIteration)
         {
-            lightCannon(i);
+            currentIteration == 0;
+            return;
         }
+        ++currentIteration;
     }
 
     void Cannons::lightCannon(const uint8_t id)
@@ -33,5 +39,13 @@ namespace cannon
         pinControl.digitalWrite(pins[1], cannons[id][1]);
         pinControl.digitalWrite(pins[2], cannons[id][2]);
         pinControl.digitalWrite(pins[3], cannons[id][3]);
+    }
+
+    void Cannons::lightOff()
+    {
+        pinControl.digitalWrite(pins[0], 1);
+        pinControl.digitalWrite(pins[1], 1);
+        pinControl.digitalWrite(pins[2], 1);
+        pinControl.digitalWrite(pins[3], 1);
     }
 } // namespace cannon

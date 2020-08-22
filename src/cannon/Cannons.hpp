@@ -11,6 +11,7 @@ namespace cannon
 
     private:
         void lightCannon(const uint8_t pin);
+        void lightOff();
 
         itf::PinControl &pinControl;
         const uint8_t pins[4];
@@ -28,6 +29,10 @@ namespace cannon
             {false, true, false, true},
             {true, true, false, true},
             {false, false, true, true}};
+        const unsigned int lightsOnIteration = 200;
+        const unsigned int lightsOffIteration = 300;
+        const unsigned int maxfIteration = 4000;
+        unsigned int currentIteration = 0;
     };
 } // namespace cannon
 #endif /* SRC_CANNON_CANNONS */
