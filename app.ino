@@ -1,6 +1,7 @@
 #include "src/arduino/ArduinoPinControl.hpp"
 #include "src/button/Button.hpp"
 #include "src/candle/Candle.hpp"
+#include "src/cannon/Cannons.hpp"
 #include "src/externals/dyplayer/DYPlayerArduino.h"
 #include "src/itf/Led.h"
 #include "src/led/AnalogLed.hpp"
@@ -19,6 +20,11 @@
 #define SWITCH_1 12
 #define SWITCH_2 13
 
+#define CANNON_PIN_1 A0
+#define CANNON_PIN_2 A1
+#define CANNON_PIN_3 A2
+#define CANNON_PIN_4 A3
+
 arduino::ArduinoPinControl pinControl{};
 
 // led::AnalogLed led1{pinControl, FLICKER_LED_PIN1};
@@ -34,6 +40,13 @@ candle::Candle candle3{led3};
 candle::Candle candle4{led4};
 candle::Candle candle5{led5};
 candle::Candle candle6{led6};
+
+cannon::Cannons cannons{
+    pinControl,
+    CANNON_PIN_1,
+    CANNON_PIN_2,
+    CANNON_PIN_3,
+    CANNON_PIN_4};
 
 #define VOLUME_MAX 30
 #define VOLUME_MIN 0
@@ -98,28 +111,30 @@ button::Button sw2{pinControl, SWITCH_2, toogleSound, decreseVolume};
 
 void loop()
 {
-    if (lightsOn)
-    {
-        // candle1.run();
-        candle2.run();
-        candle3.run();
-        candle4.run();
-        candle5.run();
-        candle6.run();
-    }
-    else
-    {
-        candle2.off();
-        candle3.off();
-        candle4.off();
-        candle5.off();
-        candle6.off();
-    }
+    // if (lightsOn)
+    // {
+    //     // candle1.run();
+    //     candle2.run();
+    //     candle3.run();
+    //     candle4.run();
+    //     candle5.run();
+    //     candle6.run();
+    // }
+    // else
+    // {
+    //     candle2.off();
+    //     candle3.off();
+    //     candle4.off();
+    //     candle5.off();
+    //     candle6.off();
+    // }
 
-    delay(random(50, 150));
+    cannons.run();
 
-    sw1.check();
-    sw2.check();
+    // delay(random(50, 150));
+
+    // sw1.check();
+    // sw2.check();
     // player.playSpecified(1);
     // delay(2000);
 }
