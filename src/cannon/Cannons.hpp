@@ -6,8 +6,14 @@ namespace cannon
     class Cannons
     {
     public:
-        Cannons(itf::PinControl &, const uint8_t, const uint8_t, const uint8_t, const uint8_t);
+        Cannons(itf::PinControl &,
+                const uint8_t,
+                const uint8_t,
+                const uint8_t,
+                const uint8_t,
+                void (*playTrack)(uint8_t));
         void run();
+        void off();
 
     private:
         void lightCannon(const uint8_t pin);
@@ -15,6 +21,7 @@ namespace cannon
 
         itf::PinControl &pinControl;
         const uint8_t pins[4];
+        void (*playTrack)(uint8_t);
         const bool cannons[13][4] = {
             {false, false, false, false},
             {true, false, false, false},
@@ -29,10 +36,12 @@ namespace cannon
             {false, true, false, true},
             {true, true, false, true},
             {false, false, true, true}};
-        const unsigned int lightsOnIteration = 200;
-        const unsigned int lightsOffIteration = 300;
-        const unsigned int maxfIteration = 4000;
-        unsigned int currentIteration = 0;
+        const unsigned int lightsOnIteration = 4500;
+        const unsigned int lightsOffIteration = 8000;
+        const unsigned long int lightsMaxIterationMinRange = 140000;
+        const unsigned long int lightsMaxIterationMaxRange = 250000;
+        unsigned long int maxfIteration = 60000;
+        unsigned long int currentIteration = 0;
     };
 } // namespace cannon
 #endif /* SRC_CANNON_CANNONS */

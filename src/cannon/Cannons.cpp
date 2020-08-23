@@ -7,30 +7,41 @@ namespace cannon
                      const uint8_t controlPin1,
                      const uint8_t controlPin2,
                      const uint8_t controlPin3,
-                     const uint8_t controlPin4) : pinControl(pinControl),
-                                                  pins{controlPin1,
-                                                       controlPin2,
-                                                       controlPin3,
-                                                       controlPin4}
+                     const uint8_t controlPin4,
+                     void (*playTrack)(uint8_t)) : pinControl(pinControl),
+                                                   pins{controlPin1,
+                                                        controlPin2,
+                                                        controlPin3,
+                                                        controlPin4},
+                                                   playTrack(playTrack)
     {
         pinControl.pinMode(pins[0], itf::mode::output);
         pinControl.pinMode(pins[1], itf::mode::output);
         pinControl.pinMode(pins[2], itf::mode::output);
         pinControl.pinMode(pins[3], itf::mode::output);
+        lightOff();
     }
 
     void Cannons::run()
     {
+        if (currentIteration == 0)
+            playTrack(random(1, 3));
         if (currentIteration == lightsOnIteration)
-            lightCannon(1);
+            lightCannon(random(0, 14));
         else if (currentIteration == lightsOffIteration)
             lightOff();
-        else if (currentIteration == maxfIteration)
+        else if (currentIteration >= maxfIteration)
         {
-            currentIteration == 0;
+            currentIteration = 0;
+            maxfIteration = random(lightsMaxIterationMinRange, lightsMaxIterationMaxRange);
             return;
         }
         ++currentIteration;
+    }
+
+    void Cannons::off()
+    {
+        lightOff();
     }
 
     void Cannons::lightCannon(const uint8_t id)

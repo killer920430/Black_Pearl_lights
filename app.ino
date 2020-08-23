@@ -38,22 +38,18 @@ candle::Candle candle3{led3};
 candle::Candle candle4{led4};
 candle::Candle candle5{led5};
 
-cannon::Cannons cannons{
-    pinControl,
-    CANNON_PIN_1,
-    CANNON_PIN_2,
-    CANNON_PIN_3,
-    CANNON_PIN_4};
-
 #define VOLUME_MAX 30
-#define VOLUME_MIN 0
-#define VOLUME_STEEP 0
+#define VOLUME_MIN 1
+#define VOLUME_STEEP 3
 SoftwareSerial SoftSerial(AUDIO_RX, AUDIO_TX);
 DY::Player player(&SoftSerial);
 
-uint8_t volume = VOLUME_MAX;
+uint8_t volume = VOLUME_MAX / 2;
+
 bool lightsOn = true;
-bool soundsOn = true;
+bool cannonsOn = true;
+uint8_t candleIteration = 0;
+uint8_t candleMaxIteration = 50;
 
 void setup()
 {
@@ -95,26 +91,50 @@ void toogleLight()
         lightsOn = true;
 }
 
-void toogleSound()
+void toogleCannons()
 {
-    if (soundsOn)
-        soundsOn = false;
+    if (cannonsOn)
+        cannonsOn = false;
     else
-        soundsOn = true;
+        cannonsOn = true;
 }
 
-button::Button sw1{pinControl, SWITCH_1, toogleLight, increaseVolume};
-button::Button sw2{pinControl, SWITCH_2, toogleSound, decreseVolume};
+void playTrack(uint8_t trackId)
+{
+    player.playSpecified(trackId);
+}
+
+button::Button sw1{pinControl, SWITCH_2, toogleLight, increaseVolume, 3000};
+button::Button sw2{pinControl, SWITCH_1, toogleCannons, decreseVolume, 3000};
+
+cannon::Cannons cannons{
+    pinControl,
+    CANNON_PIN_1,
+    CANNON_PIN_2,
+    CANNON_PIN_3,
+    CANNON_PIN_4,
+    playTrack};
 
 void loop()
 {
     if (lightsOn)
     {
-        candle1.run();
-        candle2.run();
-        candle3.run();
-        candle4.run();
-        candle5.run();
+        if (candleIteration == 0)
+        {
+            candle1.run();
+            candle2.run();
+            candle3.run();
+            candle4.run();
+            candle5.run();
+            ++candleIteration;
+        }
+        else if (candleIteration == candleMaxIteration)
+        {
+            candleIteration = 0;
+            candleMaxIteration = random(30, 55);
+        }
+        else
+            ++candleIteration;
     }
     else
     {
@@ -125,12 +145,13 @@ void loop()
         candle5.off();
     }
 
-    cannons.run();
+    if (cannonsOn)
+        cannons.run();
+    else
+        cannons.off();
 
-    delay(random(50, 150));
+    // delay(random(50, 150));
 
     sw1.check();
     sw2.check();
-    // player.playSpecified(1);
-    // delay(2000);
 }

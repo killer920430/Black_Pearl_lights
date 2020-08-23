@@ -13,6 +13,7 @@ namespace button
                                               shortPress(shortPress),
                                               maxCountPress(maxCountPress)
     {
+        pinControl.pinMode(pin, itf::mode::input);
     }
 
     void Button::check()
