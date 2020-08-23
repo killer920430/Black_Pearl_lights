@@ -150,8 +150,6 @@ void loop()
     else
         cannons.off();
 
-    // delay(random(50, 150));
-
     sw1.check();
     sw2.check();
 }
